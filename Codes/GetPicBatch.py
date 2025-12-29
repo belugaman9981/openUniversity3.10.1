@@ -9,8 +9,18 @@ def getPicHtml(url):
         
     
 def createImg(content):
-        
+    reg = r'src="(.+?\.jpg)" pic_ext'
+    content = content.decode('utf-8')
+    imgList = re.findall(reg, content)
+    i = 0
+
+    for imgurl in imgList:
+        urllib.request.urlretrieve(imgurl, '../%s.jpg' %i)
+        i += 1
+
+
 if __name__ == '__main__':
     url = "https://tieba.baidu.com/p/2555125530?pn=1"
-    getPicHtml(url)
+    content = getPicHtml(url)
+    createImg(content)
     
